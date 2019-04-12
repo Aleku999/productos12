@@ -5,3 +5,15 @@
     border-radius: 5px;
     text-decoration: none;
 }
+
+.lista-productos{
+    display: flex;
+
+}
+
+.producto{
+    background: gray;
+    &__imagen{
+        width: 100px;
+    }
+}

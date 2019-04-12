@@ -27,17 +27,38 @@ app.get('/', function(req, res) {
 });
 
 app.get('/tienda', function(req,res){
-    res.send('Tienda funciona');
+  var contexto = {
+    titulo: 'Productos',
+    nombres: [
+      'Alejandro',
+      'Valeria',
+      'sebastián'
+    ],
+    listaProductos: productos,
+  };
+    res.render('lista-productos', contexto);
     contador ++;
 });
-app.get('/tienda/gato', function(req,res){
-  var contexto= productos[1];
-  res.render('producto',contexto);
+app.post('/login', function(req,res){
+  console.log('funciona');
+  res.send('hola');
 });
+
 app.get('/tienda/:producto', function(req,res){
-  var contexto= productos[0] ;
+  var contexto= null;
+  productos.forEach(function(producto){
+
+    if(producto.titulo == req.params.producto){
+      contexto = producto;
+    }
+  });
   console.log(req.params.producto);
-  res.render('producto',contexto);
+  if(contexto == null){
+    res.send('No encontré ningún producto con el nomre' + releaseEvents.params.producto);
+  }else{
+    res.render('producto',contexto);
+  }
+  
 });
 app.get('/contacto', function(req,res){
     res.send('conoceme');
