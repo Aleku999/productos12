@@ -2,11 +2,13 @@ var express = require('express');
 var app = express();
 var renderMotor = require ('express-handlebars');
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'handlebars');
 app.engine('handlebars', renderMotor());
 
 var contador = 0;
-
+var cont = 0;
+var fs = require ('fs');
 var productos = [];
 productos.push({ 
   titulo: 'Perro',
@@ -40,9 +42,17 @@ app.get('/tienda', function(req,res){
     contador ++;
 });
 app.post('/login', function(req,res){
-  console.log('funciona');
-  res.send('hola');
+  console.log(req.body);
+  fs.writeFile('nombre'+cont+'.txt', 'daticos:' + correo + 'contraseña'+ contrasena, 'utf8', function(){
+console.log('guardado');
+
+  });
+  cont++;
+  res.redirect('/bienvenida');
+
 });
+
+
 
 app.get('/tienda/:producto', function(req,res){
   var contexto= null;
